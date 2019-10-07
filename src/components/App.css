@@ -1,0 +1,67 @@
+.premium-button {
+    padding: 0.75rem;
+    color: #fafafa;
+    display: block;
+    max-width: 210px;
+    min-width: 150px;
+    text-align: center;
+
+    cursor: pointer;
+
+    border: 2px solid #0a0a0a;
+    text-transform: uppercase;
+    font-weight: bolder;
+    line-height: 1.68;
+    letter-spacing: .2rem;
+    font-size: .7rem;
+    background: #0a0a0a;
+
+    margin: 2rem auto;
+
+    -webkit-box-shadow: 0px 0px 5px -2px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 0px 5px -2px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 0px 5px -2px rgba(0, 0, 0, 0.75);
+
+    background-image: -webkit-linear-gradient(30deg, #fafafa 50%, transparent 50%);
+    background-image: linear-gradient(30deg, #fafafa 50%, transparent 50%);
+    background-size: 500px;
+    background-repeat: no-repeat;
+    background-position: 100%;
+    -webkit-transition: all 300ms ease-in-out;
+    transition: all 300ms ease-in-out;
+}
+
+.premium-button:hover {
+    background-position: 0%;
+    color: #0a0a0a;
+}
+
+.premium-button .arrow {
+    -webkit-transition: margin 0.5s ease-in-out;
+    -moz-transition: margin 0.5s ease-in-out;
+    -ms-transition: margin 0.5s ease-in-out;
+    -o-transition: margin 0.5s ease-in-out;
+    transition: margin 0.5s ease-in-out;
+}
+
+.premium-button:hover .arrow {
+    margin-left: 5px;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    height: 100%;
+
+    background-position: center;
+    background-size: cover;
+    margin: 0;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
