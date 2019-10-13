@@ -9,7 +9,7 @@ Ethereum File Share Client &middot; [![GitHub license](https://img.shields.io/ba
     <br />
     <a href="https://youtu.be/jasEMlDE0Bs">View Demo</a>
     ·
-    <a href="https://github.com/jaykch/ethereum-file-share/issues">Report Bug</a>
+    <a href="https://github.com/jaykch/ethereum-data-share/issues">Report Bug</a>
   </p>
 </p>
 
@@ -115,4 +115,3 @@ This project is licensed under the MIT License - see the [LICENSE.md](/LICENSE) 
 ## Acknowledgments
 
 * [Boilerplate](https://github.com/dappuniversity/starter_kit) - Boilerplate for React.JS + Ethereum + Truffle project.
-* [IPFS HTTP Client](https://www.npmjs.com/package/ipfs-http-client/) - Javascript library for communication with IPFS.
