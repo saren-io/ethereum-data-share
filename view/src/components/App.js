@@ -10,18 +10,34 @@ class App extends Component {
         super(props);
         this.state = {
             account: '',
+            authenticated: '',
             contract: null,
-            status: "Not Uploaded",
+            status: "Data not loaded...",
             unitCode: '',
             unitMarks: '',
             studentID: '',
-            data: ''
+            data: '',
+            password: ''
         }
     }
+
+    authenticate = (e) => {
+        e.preventDefault();
+        console.log("Authenticating...");
+
+        if (this.state.password === "testing") {
+            ToastsStore.success("You have logged in successfully!");
+            this.setState({authenticated: true});
+        } else {
+            alert("Incorrect Password!");
+            ToastsStore.error("Incorrect Password!");
+        }
+    };
 
     async componentWillMount() {
         await this.loadWeb3();
         await this.loadBlockChainData();
+        this.fetchData();
     }
 
     async loadBlockChainData() {
@@ -56,10 +72,12 @@ class App extends Component {
     }
 
     fetchData = (e) => {
-        e.preventDefault();
+        if (e) {
+            e.preventDefault();
+        }
         this.state.contract.methods.get().call().then((v) => {
             console.log("Data fetched from Blockchain...");
-            this.setState({data: v});
+            this.setState({data: v, status: "Data Loaded!"});
             this.updateData();
             ToastsStore.success("Data fetched successfully!");
         });
@@ -68,12 +86,15 @@ class App extends Component {
     updateData = () => {
         let data = this.state.data.split(":");
         let studentData = data[0].split("-");
-
         let studentID = studentData[0];
         let unitCode = studentData[1];
         let unitMarks = studentData[2];
-
         this.setState({studentID, unitCode, unitMarks});
+    };
+
+    updatePassword = (e) => {
+        e.preventDefault();
+        this.setState({password: e.target.value});
     };
 
     render() {
@@ -82,7 +103,7 @@ class App extends Component {
                 <nav className="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
                     <a className="navbar-brand col-sm-3 col-md-2 mr-0" href="http://www.jaykch.com/"
                        target="_blank" rel="noopener noreferrer">
-                        Ethereum Data Share
+                        View Panel
                     </a>
                     <ul className="navbar-nav px-3">
                         <li className="nav-item text-nowrap d-none d-sm-none d-sm-block">
@@ -99,18 +120,38 @@ class App extends Component {
                     <div className="row">
                         <ToastsContainer store={ToastsStore}/>
                         <main role="main" className="col-lg-12 d-flex text-center">
-                            {}
                             <div className="content mr-auto ml-auto">
                                 <br/>
-                                <div>{this.state.data ?
-                                    <div>
-                                        <h2>Student ID: {this.state.studentID}</h2>
-                                        <h2>Course Code: {this.state.unitCode}</h2>
-                                        <h2>Marks: {this.state.unitMarks}</h2>
-                                    </div>
-                                    : <h2>Data not loaded!</h2>}</div>
-                                <br/>
-                                <button type="button" onClick={this.fetchData} className="premium-button">Fetch</button>
+                                <div>
+                                    {this.state.authenticated ?
+                                        <div>
+                                            <h2>Student ID: {this.state.studentID}</h2>
+                                            <h2>Course Code: {this.state.unitCode}</h2>
+                                            <h2>Marks: {this.state.unitMarks}</h2>
+                                            <button type="button" onClick={this.fetchData}
+                                                    className="premium-button">Update Data
+                                            </button>
+                                        </div>
+
+                                        : <div>
+                                            <h2>Not Authenticated! </h2>
+                                            <form onSubmit={this.authenticate}>
+                                                <div className="form-group row">
+                                                    <label htmlFor="password"
+                                                           className="col-sm-12 col-form-label">Password:</label>
+                                                    <div className="col-sm-12">
+                                                        <input type="password" className="form-control" id="password"
+                                                               value={this.state.password} placeholder="Enter Password"
+                                                               onChange={this.updatePassword}/>
+                                                    </div>
+                                                </div>
+                                                <button type="button" onClick={this.authenticate}
+                                                        className="premium-button">Submit
+                                                </button>
+                                            </form>
+                                        </div>}
+                                </div>
+
                             </div>
                         </main>
                     </div>
