@@ -3,9 +3,11 @@ Ethereum File Share Client &middot; [![GitHub license](https://img.shields.io/ba
   <h3 align="center">Check out the demo on youtube</h3>
 
   <p align="center">
-    An awesome project to upload images on a website and authenticating them through ethereum smart contracts!
+    An awesome project to upload data on a website and authenticating it through ethereum smart contracts!
     <br />
-    <a href="https://youtu.be/VOzPZUC81Fs">View Demo</a>
+    This project is a proof of concept for storing University Transcripts on Blockchain.
+    <br />
+    <a href="https://youtu.be/jasEMlDE0Bs">View Demo</a>
     ·
     <a href="https://github.com/jaykch/ethereum-file-share/issues">Report Bug</a>
   </p>
@@ -25,14 +27,14 @@ Ethereum File Share Client &middot; [![GitHub license](https://img.shields.io/ba
 * [Acknowledgements](#acknowledgments)
 
 ## About The Project
-This project uses React.JS for front end and Ethereum smart contracts for storing the IPFS hash on a blockchain. Below is the entire process from selecting file to uploading it to ipfs and displaying it on the website
+This project uses React.JS for front end and Ethereum smart contracts for storing the data on a blockchain. Below is the entire process from entering data to uploading it to a private Blockchain and displaying it on a website
 
-* **File selection:**  You can click on the chose file button to select any image you want. 
-* **Capturing file:**  The server then captures the file and converts it into a buffer.
-* **Submitting:**  After file capture, once you click on the submit button, the server uploads the file to IPFS and saves the hash it receives from IPFS API.
-* **Saving hash on Blockchain:**  Once the IPFS hash is received, server pushes the hash onto an Ethereum compatible Blockchain.
-* **Verification:**  Once the hash is on Blockchain, client then verifies the account connected to the Blockchain and retrieves the hash.
-* **Update Image:**  Once client verifies the account holder through Meta Mask, image updates on the client.
+* **Admin Panel Login:**  First you enter a password to log into the system to input data. 
+* **Adding Data:**  You input the transcript data into respective fields.
+* **Submitting:**  After adding data, once you click on the submit button, the server uploads the data to a private Ethereum Blockchain using Ganache.
+* **Logging Into View:**  Once the data is uploaded successfully, you log into a separate website with a password to view it.
+* **Fetching Data:**  On login the client fetches data and populates the fields.
+* **Updating:**  Data can be updated on the Blockchain through the admin panel and once confirmation notification is received, the new data can be fetched via the update button on the view window.
 
 ### Built With
 This project uses the following software and languages
@@ -62,7 +64,7 @@ https://www.npmjs.com/get-npm
 https://www.trufflesuite.com
 ```
 
-* Additional build tools are required to be able to run media keys on windows. Run these commands from an 
+* Additional build tools are required to be able to run this project on windows. Run these commands from an 
 administrative shell to install software dependencies:
 <br/><br/>**_Note:_** _You need to install windows build tools version 4.0 or higher_ <br/><br/>
 ```sh
@@ -91,7 +93,7 @@ npm install -g node-gyp
     ```sh
     npm start
     ```
-**_Note:_** _You need to keep running Ganache Blockchain for the app to work. Please go through the deployment below to start using your client._
+**_Note:_** _You need to keep running Ganache for the app to work. Please go through the deployment below to start using your client._
 
 ## Deployment
 
@@ -99,10 +101,10 @@ Run
 ```sh
 npm build
 ```
-You need to connect to Rinkeby  or Ropsten test network if you do not want to spend any money on Ethereum smart contracts.
+You need to connect to Rinkeby or Ropsten test network if you do not want to spend any money on Ethereum smart contracts via the Mainnet.
 
 ## Demo and Description
-Check out the demo on youtube here - <a href="https://youtu.be/VOzPZUC81Fs">View Demo</a> <br/><br/>
+Check out the demo on youtube here - <a href="https://youtu.be/jasEMlDE0Bs">View Demo</a> <br/><br/>
 
 ## Author
 * **Jay Kumar** - *Complete Development* - [jaykch.com](http://www.jaykch.com/)
