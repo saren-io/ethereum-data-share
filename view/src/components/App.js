@@ -17,6 +17,7 @@ class App extends Component {
             unitMarks: '',
             studentID: '',
             data: '',
+            students: [],
             password: ''
         }
     }
@@ -85,10 +86,12 @@ class App extends Component {
 
     updateData = () => {
         let data = this.state.data.split(":");
+        this.state.students = this.state.data.split(":");
         let studentData = data[0].split("-");
         let studentID = studentData[0];
         let unitCode = studentData[1];
         let unitMarks = studentData[2];
+        console.log(this.state.data);
         this.setState({studentID, unitCode, unitMarks});
     };
 
@@ -124,14 +127,28 @@ class App extends Component {
                                 <br/>
                                 <div>
                                     {this.state.authenticated ?
-                                        <div>
-                                            <h2>Student ID: {this.state.studentID}</h2>
-                                            <h2>Course Code: {this.state.unitCode}</h2>
-                                            <h2>Marks: {this.state.unitMarks}</h2>
+                                        <ul className="student-list">
+                                            {
+                                                this.state.students.map(function(item, i){
+                                                    if(item.length>1){
+                                                        let studentData = item.split("-");
+                                                        let studentID = studentData[0];
+                                                        let unitCode = studentData[1];
+                                                        let unitMarks = studentData[2];
+
+                                                        return <li key={i}>
+                                                            <h2>Student ID: {studentID}</h2>
+                                                            <h2>Course Code: {unitCode}</h2>
+                                                            <h2>Marks: {unitMarks}</h2>
+                                                        </li>
+                                                    }
+                                                })
+                                            }
+
                                             <button type="button" onClick={this.fetchData}
                                                     className="premium-button">Update Data
                                             </button>
-                                        </div>
+                                        </ul>
 
                                         : <div>
                                             <h2>Not Authenticated! </h2>

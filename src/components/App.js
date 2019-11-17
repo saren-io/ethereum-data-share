@@ -24,6 +24,7 @@ class App extends Component {
     async componentWillMount() {
         await this.loadWeb3();
         await this.loadBlockChainData();
+        await this.fetchData();
     }
 
     async loadBlockChainData() {
@@ -60,6 +61,7 @@ class App extends Component {
         this.setState({unitCode: e.target.value});
     };
 
+
     updateMarks = (e) => {
         e.preventDefault();
         this.setState({unitMarks: e.target.value});
@@ -80,14 +82,37 @@ class App extends Component {
         let code = this.state.unitCode;
         let marks = this.state.unitMarks;
         let ID = this.state.studentID;
-        let loadData = ID + "-" + code + "-" + marks + ":";
+        this.state.data = this.state.data + ID + "-" + code + "-" + marks + ":";
         ToastsStore.warning("Adding data to Blockchain...");
 
 
         // Store data on Blockchain
-        this.state.contract.methods.set(loadData).send({from: this.state.account}).on("confirmation", (r) => {
+        this.state.contract.methods.set(this.state.data).send({from: this.state.account}).on("confirmation", (r) => {
             console.log("Data stored on Blockchain...");
             ToastsStore.success("Data stored successfully!");
+        });
+    };
+
+    reset = () => {
+        this.state.data = "";
+        ToastsStore.warning("Resetting data...");
+
+        // Reset data on Blockchain
+        this.state.contract.methods.set(this.state.data).send({from: this.state.account}).on("confirmation", (r) => {
+            console.log("Data reset on Blockchain...");
+            ToastsStore.success("Data reset successfull!");
+        });
+    };
+
+    fetchData = (e) => {
+        if (e) {
+            e.preventDefault();
+        }
+        this.state.contract.methods.get().call().then((v) => {
+            console.log("Data fetched from Blockchain...");
+            this.setState({data: v, status: "Data Loaded!"});
+            console.log(this.state.data);
+            ToastsStore.success("Data fetched successfully!");
         });
     };
 
@@ -98,6 +123,7 @@ class App extends Component {
         if (this.state.password === "testing") {
             ToastsStore.success("You have logged in successfully!");
             this.setState({authenticated: true});
+            console.log("Successfully authenticated!");
         } else {
             alert("Incorrect Password!");
             ToastsStore.error("Incorrect Password!");
@@ -160,6 +186,9 @@ class App extends Component {
                                         </div>
                                         <button type="button" onClick={this.onSubmit}
                                                 className="premium-button">Submit
+                                        </button>
+                                        <button type="button" onClick={this.reset}
+                                                className="premium-button">Reset Data
                                         </button>
                                     </form>
                                     :
